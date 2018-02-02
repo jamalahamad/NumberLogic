@@ -20,7 +20,14 @@ class ViewController: UIViewController {
         //countLatterInString()
         //countVowelfromStr()
         //print(checkPalindrome(string: "abcdefgfedcba"))
-        print(reverseString(str: "asdfghjkl"))
+        //print(reverseString(str: "asdfghjkl"))
+         // removeDuplicateCopyLetterFromString()
+       // countTwoTimesConsecutiveRepeatedGivenLetter()
+        //findMaximumTimesConsecutiveRepeatedGivenElementInString()
+       // findMaxrepeatatingWordIngivenString()
+         // findContiguousElementFromAnArray()
+        //findMissingNumberFromAnArray()
+          findSquareRoot(value: 169)
     }
     // MARK:- LOGIC ON NUMBER
     
@@ -101,6 +108,17 @@ class ViewController: UIViewController {
             number = number/10
         }
         print(rev)
+    }
+    
+    func findSquareRoot(value : Int){
+        
+        for i in 1...value/2{
+            
+            if i*i == value{
+                
+                print("square root of : \(value) is : \(i)")
+            }
+        }
     }
 
     // MARK:- LOGIC ON STRING !!!!!
@@ -193,11 +211,189 @@ class ViewController: UIViewController {
        
     }
     
-}
-extension String {
-    mutating func swapAt(_ index1: Int, _ index2: Int) {
-        var characters = Array(self)
-        characters.swapAt(index1, index2)
-        self = String(characters)
+    func removeDuplicateCopyLetterFromString(){
+        
+        var str = "revem"
+     
+        for i in 0..<str.count-1{
+            
+            let index1 = str.index(str.startIndex, offsetBy: i)
+            let char1 = str[index1]
+            let newStr = str.suffix(from: index1)
+            
+            for j in 1..<newStr.count-1{
+                
+                let index2 = str.index(str.startIndex, offsetBy: j)
+               let nextChar = str[str.index(after: index2)]
+                if char1 == nextChar {
+                   
+                str.replaceSubrange(index2...index2, with: "")
+                }
+            }
+            
+        }
+        print("string : \(str)")
+        
+    }
+    func countTwoTimesConsecutiveRepeatedGivenLetter(){
+        
+        let str = "abbdbabbc"
+        var count1 = 0
+        var count2 = 0
+        var length = 0
+
+        while length < str.count{
+            
+            let index = str.index(str.startIndex, offsetBy: length)
+            let firstChar = str[index]
+            let endIndex = str.index(str.endIndex, offsetBy: -1)
+            if index != endIndex{
+                
+               let nextChar = str[str.index(after: index)]
+                
+                if firstChar == "b"{
+                    count1 += 1
+                    
+                }else {
+                    
+                    count1 = 0
+                }
+                if count1 == 2 && nextChar != "b"{
+                    
+                    count2 += 1
+                    
+                }
+            }
+            length += 1
+        }
+            
+           print("b appears : \(count2) times")
+        }
+    
+    func findMaximumTimesConsecutiveRepeatedGivenElementInString(){
+        
+        var count1 = 0
+        var maxCount = 0
+        let str = "22345222722222"
+        
+        for i in 0..<str.count{
+            
+            let index = str.index(str.startIndex, offsetBy: i)
+            let firstChar = str[index]
+            
+            if firstChar == "2"{
+                count1 += 1
+                
+                if count1 > maxCount{
+                    maxCount = count1
+                }
+                
+            }else {
+                
+                count1 = 0
+            }
+        }
+        
+        print("max count of 2 is : \(maxCount)")
+    }
+    
+    func findMaxrepeatatingWordIngivenString(){
+        
+        var count = 0
+        var maxCount = 0
+        let str = "lion cat dog cow lion fox lion elephant cat lion tiger lion"
+        let strArray = str.components(separatedBy: " ")
+        var firstElement = ""
+        var element = ""
+        for i in 0..<strArray.count{
+            
+            firstElement = strArray[i]
+           
+            for j in 0..<strArray.count{
+                
+                let nextelement = strArray[j]
+                
+                if firstElement == nextelement{
+                    
+                    count += 1
+                    if count > maxCount{
+                        
+                        maxCount = count
+                        element = firstElement
+                        
+                    }
+                    
+                }
+            }
+            count = 0
+        }
+        
+       print("max repeated is : \(element) and times : \(maxCount)")
+        
+    }
+    
+    // MARK:- LOGIC ON ARRAY !!!!!!!
+    
+    func findContiguousElementFromAnArray(){
+    
+        let array = [1,3,5,4,6,9]
+        var maxLength = 0
+        var max = 0
+        var min = 0
+        for i in 0..<array.count-1{
+            
+            max = array[i]
+            min = array [i]
+            for j in i+1..<array.count{
+                
+                if (max < array[j]){
+                    max = array[j]
+                    
+                }
+                if (min > array[j]){
+                    
+                    min = array[j]
+                }
+                
+                if ((max - min) == (j-i)) {
+                    
+                    if (j-i+1) > maxLength{
+                        
+                        maxLength = j-i+1
+                        print("maxLength : \(maxLength)")
+                        print(array[j])
+                        print(array[i])
+                    }
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    func findMissingNumberFromAnArray(){
+        
+        let array = [7,2,5,4,6,1]
+        var x = array[0]
+        var y = 1
+        let length = array.count
+        for i in 1..<length{
+            
+             x = x^array[i]
+        }
+        for j in 2...length+1{
+            
+            y = y^j
+        }
+        
+        let result = x^y
+        
+        print(result)
     }
 }
+
+
+
+
+
